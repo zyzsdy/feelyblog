@@ -1,0 +1,33 @@
+body {
+    /*此属性请勿修改至40以下*/
+    padding-top: 40px;
+}
+
+/*导航条*/
+.feely-navbar {
+    font-family: "微软雅黑";
+}
+
+/*TopBanner*/
+.feely-topbanner {
+    background-color: #FFC;
+    border-style: solid 1px;
+    border-radius: 4px;
+}
+
+/*主页引用文字，主要用于日期和时间。*/
+.feely-quote {
+    font-family: "微软雅黑";
+    color: #666;
+    font-size: 0.8em;
+}
+
+/*登录界面Wrapper*/
+.feely-loginwrap {
+	font-family: "微软雅黑";
+}
+
+/*页脚footer*/
+.feely-footer {
+    text-align: left;
+}

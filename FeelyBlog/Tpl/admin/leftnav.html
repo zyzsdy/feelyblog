@@ -1,0 +1,20 @@
+<!--左侧导航-->
+<ul class="nav nav-pills nav-stacked">
+<eq name="active" value="MAIN">
+    <li class="active"><a href="./">首页</a></li>
+<else />
+    <li><a href="/admin">首页</a></li>
+</eq>
+
+<eq name="active" value="EDIT">
+    <li class="active"><a href="/admin/edit">博文编辑</a></li>
+<else />
+    <li><a href="/admin/edit">博文编辑</a></li>
+</eq>
+
+<eq name="active" value="CREATE">
+    <li class="active"><a href="/admin/create">写新文字</a></li>
+<else />
+    <li><a href="/admin/create">写新文字</a></li>
+</eq>
+</ul>

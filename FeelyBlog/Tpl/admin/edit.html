@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--移动设备、IE兼容-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--标题-->
+    <title>#{$editid}.博文编辑----FeelyBlog</title>
+
+    <!--载入Bootstrap样式文档-->
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/feelystyle.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+
+    <!--低版本IE兼容-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+·   <!--导航条-->
+    <div class="navbar navbar-inverse navbar-fixed-top feely-navbar" role="navigation">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/admin">FeelyBlogAdminPanel</a>
+                <ul class="nav">
+                    <li><a href="/Index">返回主页</a></li>
+                </ul>
+                <ul class="nav pull-right">
+                    <eq name="Think.session.login" value="1">
+                        <li><a href="/admin/">{$Think.session.username}</a></li>
+                        <li><a href="#" onClick="unlogin()">注销</a></li>
+                    <else />
+                        <li><a href="/login/">登录</a></li>
+                    </eq>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!--正常界面-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="span2">
+<!--导入左侧边栏模板            
+<include file="leftnav" />    <!--左侧边栏
+-->
+                
+            </div>
+            <div class="span10">
+                <div>
+                    <h2>你正在编辑：#{$be.bid}</h2>
+                    <form>
+                    <h3 class="control-group" id="title-ctrl">标题：<input name="title" type="text" id="title" value="{$be.title}"></h3>
+                    <p>发表日期：{$be.time}<span class="feely-quote">（当前暂时不支持编辑）</span></p>
+                    <input type="hidden" value="{$be.bid}" id="bid" name="bid">
+                    <p>编辑内容：</p>
+                    <p class="well">使用Markdown语法进行编辑。</p>
+                    <textarea name="blogContent" rows="40" class="span10" id="blogContent">{$be.content}</textarea>
+                    <hr class="divider">
+                    <button type="button" class="btn btn-primary" onClick="updateBlog()">提交修改</button>
+                    <button type="button" class="btn" onClick="preview()">预览</button>
+                    </form>
+                </div>
+                <hr class="divider">
+                <div id="preview">
+                    <!--显示预览-->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--导入页面底部模板
+<include file="./static/htmltpl/footer.html" /> <!--页面底部
+-->
+    <!--页面内容结束-->
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/marked.js"></script>
+<!--其他脚本-->
+    <script type="text/javascript" src="/static/js/feelyadmin.js"></script>
+</body>
+</html>

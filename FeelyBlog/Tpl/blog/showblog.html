@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--移动设备、IE兼容-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--标题-->
+    <title>{$blogTitle}----FeelyBlog</title>
+
+    <!--载入Bootstrap样式文档-->
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/feelystyle.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!--低版本IE兼容-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <!--页面内容开始-->
+    
+<!--加载外部模板
+<include file="./static/htmltpl/navbar.html" />   <!--导航栏
+<include file="./static/htmltpl/topbanner.html" />    <!--TopBanner
+-->
+    
+    <!--主页面内容-->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9">
+                <h3>{$blogTitle}</h3>
+                        <eq name="Think.session.login" value="1">
+                            <div class="pull-right"><a class="btn" href="/admin/edit/id/{$blogId}">编辑</a></div>
+                        </eq>
+                <p class="feely-quote">{$createTime}</p>
+                <hr class="divider">
+                <div id="blogContainer">
+                {$blogContent}
+                </div>
+                
+                
+                <!--上一页/下一页按钮-->
+                <hr class="divider">
+                <ul class="unstyled">
+                    <li><a href="{$previd}">上一篇：<empty name="prevtitle">没有了。<else />{$prevtitle}</empty></a></li>
+                    <li><a href="{$nextid}">下一篇：<empty name="nexttitle">没有了。<else />{$nexttitle}</empty></a></li>
+                </ul>
+                
+                <!--评论部分-->
+                <br>
+                <hr class="divider">
+                <h4>评论：</h4>
+                <volist name="comment" id="vo" empty="暂时还没有人评论哦。">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <p>#{$i}</p>
+                            <p><a href="{$vo.siteurl}" target="_blank">{$vo.username}</a></p>
+                            <p class="feely-quote">{$vo.posttime}</p>
+                        </div>
+                        <div class="span7" id="commentContent">
+                            {$vo.content}
+                        </div>
+                    </div><hr class="divider">
+                </volist>
+
+                
+                <!--提交评论表单部分-->
+                <h4>留下你的评论：</h4>
+                <form>
+                    <p class="control-group" id="uname-ctrl">昵称：<input type="text" class="span3" id="username"></p>
+                    <p>E-mail：<input type="email" class="span3" id="email"><span>我们不会泄露你的E-mail地址。</span></p>
+                    <p>个人主页：<input type="text" class="span3" id="siteurl"><span>将会在评论列表中展示链接。</span></p>
+                    <p>
+                        <label>评论内容：</label>
+                        <input type="hidden" id="bid" value="{$blogId}">
+                        <textarea class="span7" rows="10" id="content"></textarea>
+                    </p>
+                    <p><button type="button" class="btn" id="cmtsub">提交</button></p>
+                </form>
+                
+                
+            </div>
+            
+<!--导入右侧边栏模板
+<include file="./static/htmltpl/sidebar.html" /> <!--右侧边栏
+-->
+        </div>
+    </div>
+    
+<!--导入页面底部模板
+<include file="./static/htmltpl/footer.html" /> <!--页面底部
+-->
+    <!--页面内容结束-->
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="/static/js/marked.js"></script>
+    <script type="text/javascript">
+    function cmtsmt(){
+        var username=$("#username").val();
+        var email=$("#email").val();
+        var siteurl=$("#siteurl").val();
+        var content=$("#content").val();
+        var bid=$("#bid").val();
+        if(bid==""){
+            alert("Error #2002: 好像并不知道你要评论哪篇文章。");
+        }else if(username==""){
+            $("#uname-ctrl").addClass("warning");
+            $("#username").focus().select();
+        }else if(content==""){
+            alert("Error #3001: 请输入内容！！我不需要你们给我刷评论数量。");
+        }else{
+            $.post("/blog/comsub",{
+                "bid" : bid,
+                "username" : username,
+                "email" : email,
+                "siteurl" : siteurl,
+                "content" : content,
+            },function(data){
+                if(data=="success"){
+                    alert("评论成功。");
+                    window.location.reload();
+                }else{
+                    alert("评论失败："+data);
+                }
+            });
+        }
+    }
+    $(document).ready(function() {
+        var contentStr=$("#blogContainer").html();
+        var contentHtml=marked(contentStr);
+        
+        contentHtml=contentHtml.replace(/<pre>/g,"<pre class=\"prettyprint\">");
+        contentHtml=contentHtml.replace(/&amp;/g,"&");
+        //contentHtml=contentHtml.replace(/&gt;/,">");
+        //contentHtml=contentHtml.replace(/&lt;/,"<");
+        $("#blogContainer").html(contentHtml);
+        prettyPrint();
+        
+        $("#cmtsub").click(function(){
+            cmtsmt();
+        });
+    });
+    </script>
+    <!--其他脚本-->
+</body>
+</html>
