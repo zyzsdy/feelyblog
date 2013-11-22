@@ -31,6 +31,7 @@ class adminAction extends Action {
         if(!$blogData){
             exit("Error #2001: 真的有这篇博文么？can not find a content where id ".$id);
         }
+        $blogData['content']=stripslashes($blogData['content']);
         $insert['be']=$blogData;
         $this->assign($insert);
         $this->display();
