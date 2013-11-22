@@ -10,9 +10,16 @@ body {
 
 /*TopBanner*/
 .feely-topbanner {
-    background-color: #FFC;
+    background:-webkit-gradient(linear, left top, left bottom, from(transparent), to(#fff));
+    color: #FFF;
+    background-image:url(/static/img/background.jpg);
+    height: 170px;
     border-style: solid 1px;
     border-radius: 4px;
+}
+.feely-topdiv {
+    background:-webkit-gradient(linear, left top, left bottom, from(transparent), to(#fff));
+    height: 170px;
 }
 
 /*主页引用文字，主要用于日期和时间。*/
