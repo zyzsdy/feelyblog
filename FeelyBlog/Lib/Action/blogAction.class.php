@@ -39,7 +39,7 @@ class blogAction extends Action {
         }else{
             $blogInsert['createTime']=$blogData[0]['time'];
             $blogInsert['blogTitle']=$blogData[0]['title'];
-            $blogInsert['blogContent']=$blogData[0]['content'];
+            $blogInsert['blogContent']=stripslashes($blogData[0]['content']);
             $commentStr=$blogData[0]['comment'];//评论id字符串
         }
         $commentArr=explode(",",$commentStr);//将评论id字符串转换为数组
