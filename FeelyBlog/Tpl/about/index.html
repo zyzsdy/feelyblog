@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--移动设备、IE兼容-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--标题-->
+    <title>About--FeelyBlog</title>
+
+    <!--载入Bootstrap样式文档-->
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/feelystyle.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!--低版本IE兼容-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <!--页面内容开始-->
+    
+<!--加载外部模板
+<include file="./static/htmltpl/navbar.html" />   <!--导航栏
+<include file="./static/htmltpl/topbanner.html" />    <!--TopBanner
+-->
+    
+    <!--主页面内容-->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9">
+                <h3>关于FeelyBlog</h3>
+                <hr class="divider">
+                <div id="blogContainer">
+                
+## 关于FeelyBlog
+
+FeelyBlog是一个轻量级PHP+Mysql博客程序。由Zyzsdy开发。
+
+FeelyBlog采用ThinkPHP作为后台程序框架，Bootstrap作为前台框架。使得FeelyBlog可以同时具有运行快捷和页面效果好的两方面优点。
+
+使用Markdown进行博客的书写，这使得控制博客的样式十分方便。数据库中也采用Markdown存储，只是在显示的时候才被解释为HTML。
+
+GitHub主页：https://github.com/zyzsdy/feelyblog
+
+****************
+
+## 关于Zyzsdy
+
+飞翔的鱼/zyzsdy
+
+这两个名字之间没什么必然的联系，但是都是我。区别可能只是在注册国内/国外网站上面。但是最近用的比较混。
+
+0.9个技术宅，ACG迷（←虽然这么说但是我只是天天刷新番的那一类），半个数码控，绝对的最新软件追求者，科幻迷，四个空格党（程序猿一定知道我在说什么），本命是六花（但是自己中二已毕业），一般整天处于空虚的状态，需要来自内心的救赎（←真的中二毕业了么？）。
+
+非常喜欢PHP。。。。。。
+
+****************
+
+## FeelyBlog更新记录
+
+懒得更新，请去[FeelyBlog的GitHub主页](https://github.com/zyzsdy/feelyblog)去看。
+                </div>   
+            </div>
+            
+<!--导入右侧边栏模板
+<include file="./static/htmltpl/sidebar.html" /> <!--右侧边栏
+-->
+        </div>
+    </div>
+    
+<!--导入页面底部模板
+<include file="./static/htmltpl/footer.html" /> <!--页面底部
+-->
+    <!--页面内容结束-->
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="/static/js/marked.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var contentStr=$("#blogContainer").html();
+        var contentHtml=marked(contentStr);
+        
+        contentHtml=contentHtml.replace(/<pre>/g,"<pre class=\"prettyprint\">");
+        contentHtml=contentHtml.replace(/&amp;/g,"&");
+        //contentHtml=contentHtml.replace(/&gt;/,">");
+        //contentHtml=contentHtml.replace(/&lt;/,"<");
+        $("#blogContainer").html(contentHtml);
+        prettyPrint();
+    });
+    </script>
+    <!--其他脚本-->
+</body>
+</html>
