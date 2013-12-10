@@ -25,10 +25,10 @@ FeelyBlog is a Lightweight CHINESE PHP blog.
 
 * Marked r272 Licensed by MIT License
 
-*************
+**************
 
 本程序使用Apache License 2.0授权协议
 
 详见LICENSE文件
 
-*************
+**************
