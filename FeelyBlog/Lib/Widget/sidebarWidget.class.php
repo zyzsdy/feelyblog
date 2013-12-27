@@ -2,7 +2,12 @@
 //SideBar Widget类
     class sidebarWidget extends Widget {
         public function render($data){
-            $content=$this->renderFile();
+            $linkQuery=M('linktable');
+            $linkData=$linkQuery->order('id')->select();
+            
+            $insert['link']=$linkData;
+            
+            $content=$this->renderFile('sidebar',$insert);
             return $content;
         }
     }

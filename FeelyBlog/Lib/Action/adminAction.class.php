@@ -85,4 +85,48 @@ class adminAction extends Action {
             echo "false";
         }
     }
+    public function setlink(){
+        adminlogin();
+        
+        $linkQuery=M('linktable');//实例化linktable对象
+        $linklist=$linkQuery->order('id')->select();
+        
+        $insert['linklist']=$linklist;
+        $insert['active']="SETLINK";
+        
+        $this->assign($insert);
+        $this->display();
+    }
+    public function addlink(){
+        adminlogin();
+        //获取post数据
+        $linkData['name']=$this->_post('lname');
+        $linkData['urlf']=$this->_post('lurlf');
+        $linkData['order']=$this->_post('order');
+        //存入
+        $linkQuery=M('linktable');
+        $newId=$linkQuery->add($linkData);
+        if($newId){
+            echo $newId;
+        }else{
+            echo "false";
+        }
+    }
+    public function updlink(){
+        adminlogin();
+        //获取post数据
+        $linkData['name']=$this->_post('lname');
+        $linkData['urlf']=$this->_post('lurlf');
+        $linkData['order']=$this->_post('order');
+        $id=$this->_post('lid');
+        
+        //存入数据
+        $linkQuery=M('linktable');//实例化blog对象
+        $updStatus=$linkQuery->where('id='.$id)->save($linkData);
+        if($updStatus==1){
+            echo "更新成功。";
+        }else{
+            echo "Error #2007： 数据更新失败";
+        }
+    }
 }

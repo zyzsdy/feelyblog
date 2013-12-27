@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--移动设备、IE兼容-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--标题-->
+    <title>友情链接设置----FeelyBlog</title>
+
+    <!--载入Bootstrap样式文档-->
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/feelystyle.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+
+    <!--低版本IE兼容-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+·   <!--导航条-->
+    <div class="navbar navbar-inverse navbar-fixed-top feely-navbar" role="navigation">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/admin">FeelyBlogAdminPanel</a>
+                <ul class="nav">
+                    <li><a href="/Index">返回主页</a></li>
+                </ul>
+                <ul class="nav pull-right">
+                    <eq name="Think.session.login" value="1">
+                        <li><a href="/admin/">{$Think.session.username}</a></li>
+                        <li><a href="#" onClick="unlogin()">注销</a></li>
+                    <else />
+                        <li><a href="/login/">登录</a></li>
+                    </eq>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!--正常界面-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="span2">
+<!--导入左侧边栏模板            
+<include file="leftnav" />    <!--左侧边栏
+-->
+                
+            </div>
+            <div class="span10">
+                <div>
+                    <h2>设置友情链接：</h2>
+                    <hr class="divider"></hr>
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>链接名</th>
+                            <th>地址</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="linklist" id="vo">
+                        <tr>
+                            <td><input type="text" value="{$vo.id}" id="lk{$vo.id}"></td>
+                            <td><input type="text" value="{$vo.name}" id="nm{$vo.id}"></td>
+                            <td><input type="text" value="{$vo.urlf}" id="ul{$vo.id}"></td>
+                            <td><a class="btn" href="#" onClick="updlink({$vo.id});">编辑</a></td>
+                        </tr>
+                    </volist>
+                        <tr>
+                            <td><input type="text" value="" id="nlk"></td>
+                            <td><input type="text" value="" id="nnm"></td>
+                            <td><input type="text" value="" id="nul"></td>
+                            <td><a class="btn btn-info" href="#" onClick="addlink();">新增</a></td>
+                        </tr>
+                    
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--导入页面底部模板
+<include file="./static/htmltpl/footer.html" /> <!--页面底部
+-->
+    <!--页面内容结束-->
+
+    <!--载入Javascript脚本-->
+    <!--页面底部的脚本载入有利于提高页面载入速度-->
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <!--其他脚本-->
+    <script type="text/javascript" src="/static/js/feelyadmin.js"></script>
+</body>
+</html>

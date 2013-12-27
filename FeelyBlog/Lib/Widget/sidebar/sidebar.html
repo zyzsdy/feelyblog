@@ -7,8 +7,12 @@
                 <p>飞翔的鱼仍在天空飞翔，这是我所不知道的那段时光里，这个世界所做出的改变。</p>
                 <p>不知不觉，我似乎错过了许多，而如今却只能跟随。</p>
                 
-                <h3 class="page-header">链接</h3>
+                <h3 class="page-header">友情链接</h3>
                 <ul>
-                    <li><a href="http://www.namido.net/">飞翔的鱼</a></li>
+                    <volist name="link" id="vo" empty="暂无">
+                    
+                        <li><a href="{$vo.urlf}" target="_blank">{$vo.name}</a></li>
+                    
+                    </volist>
                 </ul>
             </div>

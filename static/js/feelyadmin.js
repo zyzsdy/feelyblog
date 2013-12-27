@@ -70,3 +70,52 @@ function createBlog(){
         });
     }
 }
+//新增友情链接
+function addlink(){
+    //获取值
+    var order=$("#nlk").val();
+    var lname=$("#nnm").val();
+    var lurlf=$("#nul").val();
+    if(order==""){
+        $("#nlk").focus().select();
+    }else if(lname==""){
+        $("#nnm").focus().select();
+    }else if(lurlf==""){
+        $("#nul").focus().select();
+    }else{
+        $.post("/admin/addlink",{
+            "order" : order,
+            "lname" : lname,
+            "lurlf" : lurlf,
+        },function(data){
+            if(data=="false"){
+                alert("Error #2006: 无法添加新数据。");
+            }else{
+                alert("增加成功。");
+            }
+        });
+    }
+}
+//编辑友情
+function updlink(num){
+    //获取值
+    var order=$("#lk"+num).val();
+    var lname=$("#nm"+num).val();
+    var lurlf=$("#ul"+num).val();
+    if(order==""){
+        $("#lk"+num).focus().select();
+    }else if(lname==""){
+        $("#nm"+num).focus().select();
+    }else if(lurlf==""){
+        $("#ul"+num).focus().select();
+    }else{
+        $.post("/admin/updlink",{
+            "lid" : num,
+            "order" : order,
+            "lname" : lname,
+            "lurlf" : lurlf,
+        },function(data){
+            alert(data);
+        });
+    }
+}
