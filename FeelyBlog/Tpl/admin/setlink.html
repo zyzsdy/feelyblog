@@ -66,16 +66,16 @@
                     <tbody>
                     <volist name="linklist" id="vo">
                         <tr>
-                            <td><input type="text" value="{$vo.id}" id="lk{$vo.id}"></td>
+                            <td><input type="text" value="{$vo.id}" id="lk{$vo.id}" class="span1"></td>
                             <td><input type="text" value="{$vo.name}" id="nm{$vo.id}"></td>
-                            <td><input type="text" value="{$vo.urlf}" id="ul{$vo.id}"></td>
+                            <td><input type="text" value="{$vo.urlf}" id="ul{$vo.id}" class="span5"></td>
                             <td><a class="btn" href="#" onClick="updlink({$vo.id});">编辑</a></td>
                         </tr>
                     </volist>
                         <tr>
-                            <td><input type="text" value="" id="nlk"></td>
-                            <td><input type="text" value="" id="nnm"></td>
-                            <td><input type="text" value="" id="nul"></td>
+                            <td class="control-group info"><input type="text" value="" id="nlk" class="span1"></td>
+                            <td class="control-group info"><input type="text" value="" id="nnm"></td>
+                            <td class="control-group info"><input type="text" value="" id="nul" class="span5"></td>
                             <td><a class="btn btn-info" href="#" onClick="addlink();">新增</a></td>
                         </tr>
                     

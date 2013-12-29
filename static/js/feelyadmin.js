@@ -92,6 +92,7 @@ function addlink(){
                 alert("Error #2006: 无法添加新数据。");
             }else{
                 alert("增加成功。");
+                window.location.reload();
             }
         });
     }
@@ -116,6 +117,7 @@ function updlink(num){
             "lurlf" : lurlf,
         },function(data){
             alert(data);
+            window.location.reload();
         });
     }
 }
