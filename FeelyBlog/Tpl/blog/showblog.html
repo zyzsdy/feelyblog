@@ -140,6 +140,9 @@
         
         contentHtml=contentHtml.replace(/<pre>/g,"<pre class=\"prettyprint\">");
         contentHtml=contentHtml.replace(/&amp;/g,"&");
+        contentHtml=contentHtml.replace(/(\[video]\[\[bilibili\|av)(.+?)(\|)(.+?)(]]\[\/video])/g,function($0,$1,$2,$3,$4,$5){
+            return ($.ajax({url:"http://www.namido.net/search/biliapi/avid/"+$2+"/page/"+$4,async:false})).responseText;
+        });
         //contentHtml=contentHtml.replace(/&gt;/,">");
         //contentHtml=contentHtml.replace(/&lt;/,"<");
         $("#blogContainer").html(contentHtml);
