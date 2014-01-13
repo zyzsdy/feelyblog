@@ -38,8 +38,10 @@ function updateBlog(){
             "content" : content,
         },function(data){
             if(data=="success"){
-                alert("修改成功");
-                window.location.href="/blog/"+bid;
+                var jpnd=confirm("修改成功！\n\n“确认”跳转到文章页，“取消”留在当前页。");
+                if(jpnd){
+                    window.location.href="/blog/"+bid;
+                }
             }else{
                 alert(data);
             }
@@ -63,9 +65,13 @@ function createBlog(){
         },function(data){
             if(data=="false"){
                 alert("Error #2004: 我们好像没有办法新建一篇文章。");
+            }else if(isNaN(data)){
+                alert("Error #2004: 我们好像无法新建一篇文章。");
             }else{
-                alert("发布成功！");
-                window.location.href="/blog/"+data;
+                var jpnd=confirm("发布成功！\n\n“确认”跳转到文章页，“取消”留在当前页。");
+                if(jpnd){
+                    window.location.href="/blog/"+data;
+                }
             }
         });
     }

@@ -45,11 +45,18 @@ class blogAction extends Action {
         $commentArr=explode(",",$commentStr);//将评论id字符串转换为数组
         
         //获取上一篇和下一篇标题
-        $blogInsert['previd']=$bid+1;
-        $blogInsert['nextid']=$bid-1;
-        $blogInsert['prevtitle']=$blogQuery->where('bid='.($bid+1))->getField('title');
-        $blogInsert['nexttitle']=$blogQuery->where('bid='.($bid-1))->getField('title');
+        $prevBlogData=$blogQuery->where('bid<'.$bid)->order('bid desc')->limit(1)->getField('bid, title');
+        $nextBlogData=$blogQuery->where('bid>'.($bid))->limit(1)->getField('bid, title');
+        foreach($prevBlogData as $id => $name){
+            $blogInsert['previd']=$id;
+            $blogInsert['prevtitle']=$name;
+        }
+        foreach($nextBlogData as $id => $name){
+            $blogInsert['nextid']=$id;
+            $blogInsert['nexttitle']=$name;
+        }
         
+        //=============评论部分===========
         $commentQuery=M('comment');//实例化comment对象
         for($i=0;$commentArr[$i]!="";$i++){
             $cid=$commentArr[$i];
