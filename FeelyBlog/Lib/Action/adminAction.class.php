@@ -80,6 +80,15 @@ class adminAction extends Action {
         $newBid=$blogQuery->add($blogData);
         
         if($newBid){
+            //清除autosave
+            
+            $asQuery=M('autosave');
+            $asdata['inuse']="0";
+            $asStatus=$asQuery->where('id=1')->save($asdata);
+            if($asStatus!=1){
+                echo "Error #2010: 自动保存清空失败。";
+            }
+            
             echo $newBid;
         }else{
             echo "false";
@@ -144,6 +153,33 @@ class adminAction extends Action {
             echo "更新成功。";
         }else{
             echo "Error #2007： 数据更新失败";
+        }
+    }
+    public function asread(){
+        adminlogin();
+        
+        //自动保存的数据
+        $asQuery=M('autosave');
+        $data=$asQuery->where('id=1')->limit(1)->select();
+        
+        echo json_encode($data[0]);
+    }
+    public function assave(){
+        adminlogin();
+        
+        //处理自动保存
+        $asdata['title']=$this->_post('title');
+        $asdata['content']=$this->_post('content');
+        $asdata['time']=$this->_post('time');
+        $asdata['inuse']="1";
+        
+        $asQuery=M('autosave');
+        $asStatus=$asQuery->where('id=1')->save($asdata);
+        
+        if($asStatus==1){
+            echo "success";
+        }else{
+            echo "Erroe #2009: 无法自动保存。";
         }
     }
 }

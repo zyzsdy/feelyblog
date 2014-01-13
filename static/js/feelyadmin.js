@@ -1,6 +1,21 @@
 //用于Admin页面的脚本文件
 //本文件被多个页面引用，所以请仅仅往里写函数好么？
 
+//覆盖Date类的toString()方法
+Date.prototype.toString=function(){
+    var year=this.getFullYear();
+    var mon=this.getMonth()+1;
+    var day=this.getDate();
+    var hours=this.getHours();
+    hours=hours<10?"0"+hours:hours;
+    var minute=this.getMinutes();
+    minute=minute<10?"0"+minute:minute;
+    var second=this.getSeconds();
+    second=second<10?"0"+second:second;
+    
+    return year+"/"+mon+"/"+day+" "+hours+":"+minute+":"+second;
+}
+
 //注销登录
 function unlogin(){
     $.get("/login/unlogin",{},function(data){
@@ -139,4 +154,44 @@ function deleteBlog(bid){
             window.location.reload();
         });
     }
+}
+
+//读取Autosave
+function asread(){
+    $.get("/admin/asread",{},function(d){
+        data=JSON.parse(d);
+        if(data.inuse==1){
+            var astime=new Date();
+            astime.setTime(data.time);
+            $("#blogContent").val(data.content);
+            $("#title").val(data.title);
+            $("#asread-info").html("已载入于 "+astime.toString()+" 自动保存的内容。");
+            $("#asread").fadeIn(600);
+        }
+    });
+}
+
+//Autosave
+function assave(){
+    var d=new Date();
+    var tp=d.getTime();
+    var title=$("#title").val();
+    var content=$("#blogContent").val();
+    $.post("/admin/assave",{
+        "time": tp,
+        "title" : title,
+        "content" : content,
+    },function(data){
+        var info="";
+        if(data=="success"){
+            info="已于 "+d.toString()+" 自动保存。";
+        }else{
+            info=data;
+        }
+        $("#assave-info").html(info);
+        $("#assave").fadeIn(500);
+        var c=setTimeout(function(){
+            $("#assave").fadeOut(500);
+        },2000);
+    });
 }

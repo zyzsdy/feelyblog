@@ -72,7 +72,7 @@
                             <th><div class="btn-group">
                                 <a class="btn" href="/admin/edit/id/{$vo.bid}">编辑</a>
                                 <a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                                <ul class="dropdown-menu"><li><a class="btn btn-danger" onClick="deleteBlog({$vo.bid});">删除</a></li></ul>
+                                <ul class="dropdown-menu"><li><a onClick="deleteBlog({$vo.bid});"><i class="icon-trash"></i>&nbsp;删除</a></li></ul>
                             </div></th>
                         </tr>
                     </volist>

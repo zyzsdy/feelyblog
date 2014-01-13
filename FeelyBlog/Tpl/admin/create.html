@@ -21,6 +21,10 @@
 </head>
 
 <body>
+        <div class="alert alert-success feely-autosave-info" id="assave" style="display:none;">
+            <a class="close" data-dismiss="alert">×</a>
+            <span id="assave-info">自动保存的信息。</span>
+        </div>
 ·   <!--导航条-->
     <div class="navbar navbar-inverse navbar-fixed-top feely-navbar" role="navigation">
         <div class="navbar-inner">
@@ -57,6 +61,7 @@
                     <h3 class="control-group" id="title-ctrl">标题：<input name="title" type="text" id="title"></h3>
                     <p>编辑内容：</p>
                     <p class="well">使用Markdown语法进行编辑。</p>
+                    <div class="alert alert-info" style="display: none;" id="asread"><a class="close" data-dismiss="alert">×</a><span id="asread-info">已载入AutoSave。</span></div>
                     <textarea name="blogContent" rows="40" class="span10" id="blogContent"></textarea>
                     <hr class="divider">
                     <button type="button" class="btn btn-primary" onClick="createBlog()">发布文字</button>
@@ -85,5 +90,21 @@
     <script type="text/javascript" src="/static/js/marked.js"></script>
 <!--其他脚本-->
     <script type="text/javascript" src="/static/js/feelyadmin.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        asread();
+        var assavetimer=setInterval(function(){
+            assave();    
+        },60000);
+        
+        $("#blogContent").keydown(function(e){
+            var kc=e.which?e.which:e.keyCode;
+            if(e.ctrlKey&&kc==83){
+                assave();
+                e.preventDefault();
+            }
+        });
+    });
+    </script>
 </body>
 </html>
