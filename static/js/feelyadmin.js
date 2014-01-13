@@ -127,3 +127,16 @@ function updlink(num){
         });
     }
 }
+
+//删除博文
+function deleteBlog(bid){
+    var conf=confirm("真的要删除 #."+bid+" 博文么？");
+    if(conf){
+        $.post("/admin/deleteblog",{
+            "bid" : bid,
+        },function(data){
+            alert(data);
+            window.location.reload();
+        });
+    }
+}

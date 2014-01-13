@@ -85,6 +85,23 @@ class adminAction extends Action {
             echo "false";
         }
     }
+    public function deleteblog(){
+        adminlogin();
+        
+        //删除博文
+        //获取post数据
+        $bid=$this->_post('bid');
+        
+        //准备删除
+        $blogQuery=M('blog');//实例化blog对象
+        $deleteStatus=$blogQuery->where('bid='.$bid)->delete();//删除bid对应的数据请求。
+        
+        if(!$deleteStatus){
+            echo "Error #2008： 数据库查询失败。无法找到你需要删除的文章。";
+        }else{
+            echo "已经成功删除了 #.".$bid." 的".$deleteStatus."篇文章";
+        }
+    }
     public function setlink(){
         adminlogin();
         
